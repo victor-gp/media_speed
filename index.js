@@ -36,8 +36,8 @@ var ce = document.createElement.bind(document),
     cover = ce('div'),
     b_half = ce('a'),
     b_one = ce('a'),
+    b_one_and_half = ce('a'),
     b_two = ce('a'),
-    b_three = ce('a'),
     b_beg = ce('a'),
     b_end = ce('a'),
     buttons = ce('div');
@@ -90,16 +90,16 @@ b_one.onclick = function(e){
     range.value = 1;
 }
 
+b_one_and_half.onclick = function(e){
+    e.preventDefault();
+    update(1.5);
+    range.value = 1.5;
+}
+
 b_two.onclick = function(e){
     e.preventDefault();
     update(2);
     range.value = 2;
-}
-
-b_three.onclick = function(e){
-    e.preventDefault();
-    update(3);
-    range.value = 3;
 }
 
 b_beg.onclick = function(e){
@@ -119,8 +119,8 @@ b_end.onclick = function(e){
 buttons.appendChild(b_beg);
 buttons.appendChild(b_half);
 buttons.appendChild(b_one);
+buttons.appendChild(b_one_and_half);
 buttons.appendChild(b_two);
-buttons.appendChild(b_three);
 buttons.appendChild(b_end);
 buttons.style.display = 'flex';
 buttons.style.justifyContent = 'space-between';
@@ -128,10 +128,10 @@ b_half.textContent = '½x';
 b_half.href = '#';
 b_one.textContent = '1x';
 b_one.href = '#';
+b_one_and_half.textContent = '1½x';
+b_one_and_half.href = '#';
 b_two.textContent = '2x';
 b_two.href = '#';
-b_three.textContent = '3x';
-b_three.href = '#';
 b_beg.textContent = '<<';
 b_beg.href = '#';
 b_end.textContent = '>>';
