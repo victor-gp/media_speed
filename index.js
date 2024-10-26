@@ -132,6 +132,7 @@ const tweakButton = (b, textContent) => {
     b.textContent = textContent
     b.href = '#'
     b.style.textDecoration = 'none';
+    b.style.color = '#000088';
 }
 tweakButton(b_half, '.5x');
 tweakButton(b_one, '1x');
@@ -154,7 +155,7 @@ container.style.position = 'fixed';
 container.style.top = '1%';
 container.style.right = '1%';
 container.style.zIndex = '1000000';
-container.style.background = 'red';
+container.style.background = '#ff4444';
 container.style.borderRadius = '6px';
 container.style.padding = '10px';
 container.style.textAlign = 'center';
