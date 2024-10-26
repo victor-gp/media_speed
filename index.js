@@ -72,6 +72,24 @@ cover.onclick = function(){
     container.remove();
 };
 
+// ctrl+P enabled/disables "Persistend Mode". keeps the widget even if you click elsewhere.
+document.addEventListener('keyup', (event) => {
+    if (event.ctrlKey && event.key === 'p') {
+        event.preventDefault();
+        if (cover.style.visibility === '' || cover.style.visibility === 'unset') {
+            cover.style.visibility = 'hidden';
+        } else {
+            cover.style.visibility = 'unset';
+        }
+    }
+});
+// no need for Print Dialog if the bookmarklet is active (watching/listening to media).
+document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.key === 'p') {
+        event.preventDefault();
+    }
+});
+
 if(media.length){
     setVideo(media[0]);
     select.value = 0;
