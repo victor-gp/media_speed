@@ -16,7 +16,7 @@ var update = function(speed){
     }
 
     active.playbackRate = speed;
-    rate.textContent = speed;
+    rate.textContent = Number(speed).toFixed(1);
 };
 
 var setVideo = function(v){
