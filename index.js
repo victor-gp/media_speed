@@ -38,8 +38,8 @@ var ce = document.createElement.bind(document),
     b_one = ce('a'),
     b_one_and_half = ce('a'),
     b_two = ce('a'),
-    b_beg = ce('a'),
-    b_end = ce('a'),
+    b_slower = ce('a'),
+    b_faster = ce('a'),
     buttons = ce('div');
 
 var choose = ce('option');
@@ -102,26 +102,30 @@ b_two.onclick = function(e){
     range.value = 2;
 }
 
-b_beg.onclick = function(e){
+b_slower.onclick = function(e){
     e.preventDefault();
-    if(active){
-        active.currentTime = 1;
-    }
+    const slower = active.playbackRate - Number(range.step);
+    const clamped = Math.max(Number(range.min), slower);
+    const fixed = clamped.toFixed(1);
+    update(fixed);
+    range.value = fixed;
 }
 
-b_end.onclick = function(e){
+b_faster.onclick = function(e){
     e.preventDefault();
-    if(active){
-        active.currentTime = active.duration - 1;
-    }
+    const faster = active.playbackRate + Number(range.step);
+    const clamped = Math.min(Number(range.max), faster);
+    const fixed = clamped.toFixed(1);
+    update(fixed);
+    range.value = fixed;
 }
 
-buttons.appendChild(b_beg);
+buttons.appendChild(b_slower);
 buttons.appendChild(b_half);
 buttons.appendChild(b_one);
 buttons.appendChild(b_one_and_half);
 buttons.appendChild(b_two);
-buttons.appendChild(b_end);
+buttons.appendChild(b_faster);
 buttons.style.display = 'flex';
 buttons.style.justifyContent = 'space-between';
 b_half.textContent = '½x';
@@ -132,10 +136,10 @@ b_one_and_half.textContent = '1½x';
 b_one_and_half.href = '#';
 b_two.textContent = '2x';
 b_two.href = '#';
-b_beg.textContent = '<<';
-b_beg.href = '#';
-b_end.textContent = '>>';
-b_end.href = '#';
+b_slower.textContent = '<<';
+b_slower.href = '#';
+b_faster.textContent = '>>';
+b_faster.href = '#';
 range.type = 'range';
 range.min = '.1';
 range.max = '4';
