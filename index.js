@@ -179,3 +179,29 @@ for(var i = 0; i < media.length; i++){
         select.querySelectorAll('option')[i + 1].selected = 'selected'
     }
 }
+
+document.addEventListener('keydown', (event) => {
+    if (container.throttleSlowerFaster) return;
+    if (event.key === '<') {
+        setThrottling();
+        b_slower.click();
+    } else if (event.key === '>') {
+        setThrottling();
+        b_faster.click();
+    }
+});
+
+function setThrottling() {
+    container.throttleSlowerFaster = true;
+    const unset = () => {
+        if (container) container.throttleSlowerFaster = false;
+    }
+    setTimeout(unset, 300);
+}
+
+document.addEventListener('keyup', (event) => {
+    if (!container) return;
+    if (event.key === '<' || event.key === '>') {
+        container.throttleSlowerFaster = false;
+    }
+});
