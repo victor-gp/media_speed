@@ -128,18 +128,17 @@ buttons.appendChild(b_two);
 buttons.appendChild(b_faster);
 buttons.style.display = 'flex';
 buttons.style.justifyContent = 'space-between';
-b_half.textContent = '.5x';
-b_half.href = '#';
-b_one.textContent = '1x';
-b_one.href = '#';
-b_one_and_half.textContent = '1.5x';
-b_one_and_half.href = '#';
-b_two.textContent = '2x';
-b_two.href = '#';
-b_slower.textContent = '<<';
-b_slower.href = '#';
-b_faster.textContent = '>>';
-b_faster.href = '#';
+const tweakButton = (b, textContent) => {
+    b.textContent = textContent
+    b.href = '#'
+    b.style.textDecoration = 'none';
+}
+tweakButton(b_half, '.5x');
+tweakButton(b_one, '1x');
+tweakButton(b_one_and_half, '1.5x');
+tweakButton(b_two, '2x');
+tweakButton(b_slower, '<<');
+tweakButton(b_faster, '>>');
 range.type = 'range';
 range.min = '.1';
 range.max = '4';
