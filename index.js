@@ -4,6 +4,7 @@ existing = qsa('.video_speed_cover, .video_speed_container');
 
 if(existing.length){
     existing.forEach(el => el.remove());
+    removeDocumentEventListeners();
 }
 
 var isPlaying = function(media){
@@ -70,10 +71,11 @@ range.oninput = function(){
 cover.onclick = function(){
     cover.remove();
     container.remove();
+    removeDocumentEventListeners();
 };
 
 // ctrl+P enabled/disables "Persistend Mode". keeps the widget even if you click elsewhere.
-document.addEventListener('keyup', (event) => {
+const keyupPersistentModeHandler = (event) => {
     if (event.ctrlKey && event.key === 'p') {
         event.preventDefault();
         if (cover.style.visibility === '' || cover.style.visibility === 'unset') {
@@ -82,13 +84,15 @@ document.addEventListener('keyup', (event) => {
             cover.style.visibility = 'unset';
         }
     }
-});
+}
 // no need for Print Dialog if the bookmarklet is active (watching/listening to media).
-document.addEventListener('keydown', (event) => {
+const keydownPersistentModeHandler = (event) => {
     if (event.ctrlKey && event.key === 'p') {
         event.preventDefault();
     }
-});
+}
+document.addEventListener('keyup', keyupPersistentModeHandler);
+document.addEventListener('keydown', keydownPersistentModeHandler);
 
 if(media.length){
     setVideo(media[0]);
@@ -198,7 +202,7 @@ for(var i = 0; i < media.length; i++){
     }
 }
 
-document.addEventListener('keydown', (event) => {
+const keydownSlowerFasterHandler = (event) => {
     if (container.throttleSlowerFaster) return;
     if (event.key === '<') {
         setThrottling();
@@ -207,8 +211,7 @@ document.addEventListener('keydown', (event) => {
         setThrottling();
         b_faster.click();
     }
-});
-
+}
 function setThrottling() {
     container.throttleSlowerFaster = true;
     const unset = () => {
@@ -216,10 +219,17 @@ function setThrottling() {
     }
     setTimeout(unset, 300);
 }
-
-document.addEventListener('keyup', (event) => {
-    if (!container) return;
+const keyupSlowerFasterHandler = (event) => {
     if (event.key === '<' || event.key === '>') {
         container.throttleSlowerFaster = false;
     }
-});
+};
+document.addEventListener('keydown', keydownSlowerFasterHandler);
+document.addEventListener('keyup', keyupSlowerFasterHandler);
+
+const removeDocumentEventListeners = () => {
+    document.removeEventListener('keydown', keydownPersistentModeHandler);
+    document.removeEventListener('keyup', keyupPersistentModeHandler);
+    document.removeEventListener('keydown', keydownSlowerFasterHandler);
+    document.removeEventListener('keyup', keyupSlowerFasterHandler);
+}
