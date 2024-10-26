@@ -144,9 +144,13 @@ range.type = 'range';
 range.min = '.1';
 range.max = '4';
 range.step = '.1';
+rate.style.display = 'inline-block';
+rate.style.fontWeight = 'bold';
+rate.style.border = 'dotted 2px';
+rate.style.padding = '.5ex .5em'
+rate.style.marginRight = '1em';
 select.style.display = 'inline-block';
 range.style.display = 'block';
-rate.style.display = 'inline-block';
 container.style.position = 'fixed';
 container.style.top = '1%';
 container.style.right = '1%';
@@ -162,10 +166,10 @@ cover.style.right = 0;
 cover.style.bottom = 0;
 cover.style.left = 0;
 cover.classList.add('video_speed_cover');
+container.appendChild(rate);
 container.appendChild(select);
 container.appendChild(range);
 container.appendChild(buttons);
-container.appendChild(rate);
 body.appendChild(cover);
 body.appendChild(container);
 
