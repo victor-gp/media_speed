@@ -1,6 +1,6 @@
 var qs = document.querySelector.bind(document),
     qsa = document.querySelectorAll.bind(document);
-existing = qsa('.video_speed_cover, .video_speed_container');
+existing = qsa('.video_speed_container');
 
 if(existing.length){
     existing.forEach(el => el.remove());
@@ -34,7 +34,6 @@ var ce = document.createElement.bind(document),
     options = [],
     range = ce('input'),
     rate = ce('span'),
-    cover = ce('div'),
     b_half = ce('a'),
     b_one = ce('a'),
     b_one_and_half = ce('a'),
@@ -67,32 +66,6 @@ select.onchange = function(){
 range.oninput = function(){
     update(range.value);
 };
-
-cover.onclick = function(){
-    cover.remove();
-    container.remove();
-    removeDocumentEventListeners();
-};
-
-// ctrl+P enabled/disables "Persistend Mode". keeps the widget even if you click elsewhere.
-const keyupPersistentModeHandler = (event) => {
-    if (event.ctrlKey && event.key === 'p') {
-        event.preventDefault();
-        if (cover.style.visibility === '' || cover.style.visibility === 'unset') {
-            cover.style.visibility = 'hidden';
-        } else {
-            cover.style.visibility = 'unset';
-        }
-    }
-}
-// no need for Print Dialog if the bookmarklet is active (watching/listening to media).
-const keydownPersistentModeHandler = (event) => {
-    if (event.ctrlKey && event.key === 'p') {
-        event.preventDefault();
-    }
-}
-document.addEventListener('keyup', keyupPersistentModeHandler);
-document.addEventListener('keydown', keydownPersistentModeHandler);
 
 if(media.length){
     setVideo(media[0]);
@@ -182,17 +155,10 @@ container.style.borderRadius = '6px';
 container.style.padding = '10px';
 container.style.textAlign = 'center';
 container.classList.add('video_speed_container');
-cover.style.position = 'fixed';
-cover.style.top = 0;
-cover.style.right = 0;
-cover.style.bottom = 0;
-cover.style.left = 0;
-cover.classList.add('video_speed_cover');
 container.appendChild(rate);
 container.appendChild(select);
 container.appendChild(range);
 container.appendChild(buttons);
-body.appendChild(cover);
 body.appendChild(container);
 
 for(var i = 0; i < media.length; i++){
